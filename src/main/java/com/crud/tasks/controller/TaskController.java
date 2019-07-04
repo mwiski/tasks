@@ -29,7 +29,7 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
-    public TaskDto updateTask(TaskDto taskDto) {
+    public TaskDto updateTask() {
         return new TaskDto(1L, "Edited test title", "Test content");
     }
 
