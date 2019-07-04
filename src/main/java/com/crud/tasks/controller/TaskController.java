@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/task")
+@RequestMapping(TaskController.BASE_API)
 public class TaskController {
+
+    public static final String BASE_API = "/v1/task";
 
     @RequestMapping(method = RequestMethod.GET, value = "getTasks")
     public List<TaskDto> getTasks() {
@@ -17,12 +19,12 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getTask")
-    public TaskDto getTask(Long taskId) {
+    public TaskDto getTask() {
         return new TaskDto(1L, "test title", "test_content");
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
-    public void deleteTask(Long taskId) {
+    public void deleteTask() {
 
     }
 
@@ -32,7 +34,7 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createTask")
-    public void createTask(TaskDto taskDto) {
+    public void createTask() {
 
     }
 }
