@@ -30,7 +30,11 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
-    public boolean deleteTask() {
+    public boolean deleteTask(@RequestParam Long taskId) throws TaskNotFoundException {
+        if (getTask(taskId) != null) {
+            service.deleteTask(taskId);
+            return true;
+        }
         return false;
     }
 
