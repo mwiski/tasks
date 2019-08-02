@@ -12,14 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Java6Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TrelloClientTest {
@@ -101,7 +100,6 @@ public class TrelloClientTest {
         List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();
 
         //Then
-        assertEquals(new ArrayList<>(), fetchedTrelloBoards);
-        assertTrue(fetchedTrelloBoards.isEmpty());
+        assertThat((fetchedTrelloBoards).isEmpty());
     }
 }
