@@ -1,6 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Mail;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class SimpleEmailService {
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
+        StringUtils.isNotEmpty(mail.getToCc());
         return mailMessage;
     }
 }
