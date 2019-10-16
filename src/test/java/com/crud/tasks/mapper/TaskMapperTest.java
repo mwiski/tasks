@@ -33,6 +33,15 @@ public class TaskMapperTest {
     }
 
     @Test
+    public void mapToTaskWhenDtoIsNull() {
+        //Given & When
+        Task task = taskMapper.mapToTask(null);
+
+        //Then
+        assertThat(task).isNull();
+    }
+
+    @Test
     public void mapToTask() {
         //Given & When
         Task task = taskMapper.mapToTask(testeeDto);
@@ -51,6 +60,15 @@ public class TaskMapperTest {
     }
 
     @Test
+    public void mapToTaskDtoWhenTaskIsNull() {
+        //Given & When
+        TaskDto taskDto = taskMapper.mapToTaskDto(null);
+
+        //Then
+        assertThat(taskDto).isNull();
+    }
+
+    @Test
     public void mapToTaskDto() {
         //Given & When
         TaskDto taskDto = taskMapper.mapToTaskDto(testee);
@@ -66,6 +84,15 @@ public class TaskMapperTest {
 
         //Then
         assertThat(taskDtoList).isEmpty();
+    }
+
+    @Test
+    public void mapToTaskDtoListWhenListIsNull() {
+        //Given & When
+        List<TaskDto> taskDtoList = taskMapper.mapToTaskDtoList(null);
+
+        //Then
+        assertThat(taskDtoList).isNull();
     }
 
     @Test

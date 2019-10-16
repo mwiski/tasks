@@ -40,6 +40,15 @@ public class TrelloMapperTest {
     }
 
     @Test
+    public void mapToBoardsWhenBoardDtoIsNull() {
+        //Given & When
+        List<TrelloBoard> trelloBoards = trelloMapper.mapToBoards(null);
+
+        //Then
+        assertThat(trelloBoards).isNull();
+    }
+
+    @Test
     public void mapToBoardsDto() {
         //Given & When
         List<TrelloBoardDto> trelloBoardDtos = trelloMapper.mapToBoardsDto(testeeTrelloBoards);
@@ -48,6 +57,15 @@ public class TrelloMapperTest {
         //Then
         assertThat(trelloBoardDtos.size()).isEqualTo(1);
         assertThat(trelloBoardDtos.get(0)).isEqualToComparingFieldByField(new TrelloBoardDto( "1", "test_board",  expectedListDto));
+    }
+
+    @Test
+    public void mapToBoardsDtoWhenBoardIsNull() {
+        //Given & When
+        List<TrelloBoardDto> trelloBoardDtos = trelloMapper.mapToBoardsDto(null);
+
+        //Then
+        assertThat(trelloBoardDtos).isNull();
     }
 
     @Test
@@ -61,6 +79,15 @@ public class TrelloMapperTest {
     }
 
     @Test
+    public void mapToListWhenListDtoIsNull() {
+        //Given & When
+        List<TrelloList> trelloListList = trelloMapper.mapToList(null);
+
+        //Then
+        assertThat(trelloListList).isNull();
+    }
+
+    @Test
     public void mapToListDto() {
         //Given & When
         List<TrelloListDto> trelloListDtoList = trelloMapper.mapToListDto(testeeTrelloListList);
@@ -68,6 +95,15 @@ public class TrelloMapperTest {
         //Then
         assertThat(trelloListDtoList.size()).isEqualTo(1);
         assertThat(trelloListDtoList.get(0)).isEqualToComparingFieldByField(new TrelloListDto("1", "test_list", false));
+    }
+
+    @Test
+    public void mapToListDtoWhenListIsNull() {
+        //Given & When
+        List<TrelloListDto> trelloListDtoList = trelloMapper.mapToListDto(null);
+
+        //Then
+        assertThat(trelloListDtoList).isNull();
     }
 
     @Test
@@ -80,11 +116,29 @@ public class TrelloMapperTest {
     }
 
     @Test
+    public void mapToCardDtoWhenCardIsNull() {
+        //Given & When
+        TrelloCardDto trelloCardDto = trelloMapper.mapToCardDto(null);
+
+        //Then
+        assertThat(trelloCardDto).isNull();
+    }
+
+    @Test
     public void mapToCard() {
         //Given & When
         TrelloCard trelloCard = trelloMapper.mapToCard(testeeTrelloCardDto);
 
         //Then
         assertThat(trelloCard).isEqualToComparingFieldByField(new TrelloCard("Test CardDto", "Test description Dto", "2", "2"));
+    }
+
+    @Test
+    public void mapToCardWhenCardDtoIsNull() {
+        //Given & When
+        TrelloCard trelloCard = trelloMapper.mapToCard(null);
+
+        //Then
+        assertThat(trelloCard).isNull();
     }
 }
