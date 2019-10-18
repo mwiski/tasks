@@ -5,6 +5,7 @@ import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import com.google.gson.Gson;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +30,25 @@ public class TaskControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private DbService service;
-
     @MockBean
     private TaskMapper taskMapper;
 
     private static final long ID = 1L;
     private static final String TITLE = "TestDto";
     private static final String CONTENT = "Test_ContentDto";
-    private static final Task testeeTask = new Task(1L, "Test", "Test_Content");
-    private static final TaskDto testeeTaskDto = new TaskDto(ID, TITLE, CONTENT);
-    private static final List<TaskDto> testeeTaskDtos = Arrays.asList(testeeTaskDto);
+    private Task testeeTask;
+    private TaskDto testeeTaskDto;
+    private List<TaskDto> testeeTaskDtos;
+
+    @Before
+    public void before() {
+        testeeTask = new Task(1L, "Test", "Test_Content");
+        testeeTaskDto = new TaskDto(ID, TITLE, CONTENT);
+        testeeTaskDtos = Arrays.asList(testeeTaskDto);
+    }
+
 
     @Test
     public void shouldReturnEmptyList() throws Exception {
