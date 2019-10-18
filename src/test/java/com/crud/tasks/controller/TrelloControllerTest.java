@@ -1,9 +1,6 @@
 package com.crud.tasks.controller;
 
-import com.crud.tasks.domain.CreatedTrelloCardDto;
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloCardDto;
-import com.crud.tasks.domain.TrelloListDto;
+import com.crud.tasks.domain.*;
 import com.crud.tasks.trello.facade.TrelloFacade;
 import com.google.gson.Gson;
 import org.junit.Test;
@@ -22,8 +19,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(TrelloController.class)
@@ -81,10 +77,15 @@ public class TrelloControllerTest {
                 "top",
                 "1");
 
+        TrelloDto trelloDto = new TrelloDto(1, 1);
+        TrelloAttachmentByTypeDto trelloAttachmentByTypeDto = new TrelloAttachmentByTypeDto(trelloDto);
+        TrelloBadgeDto trelloBadgeDto = new TrelloBadgeDto(1, trelloAttachmentByTypeDto);
+
         CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto(
                 "323",
                 "Test",
-                "http://test.com");
+                "http://test.com",
+                trelloBadgeDto);
 
         when(trelloFacade.createCard(ArgumentMatchers.any(TrelloCardDto.class))).thenReturn(createdTrelloCardDto);
 
@@ -96,8 +97,7 @@ public class TrelloControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .characterEncoding("UTF-8")
             .content(jsonContent))
-            .andExpect(jsonPath("$.id", is("323")))
-            .andExpect(jsonPath("$.name", is("Test")))
-            .andExpect(jsonPath("$.shortUrl", is("http://test.com")));
+            .andExpect(status().isOk())
+            .andExpect(content().json("{\"id\":\"323\",\"name\":\"Test\",\"shortUrl\":\"http://test.com\",\"badges\":{\"votes\":1,\"attachmentsByType\":{\"trello\":{\"board\":1,\"card\":1}}}}"));
     }
 }

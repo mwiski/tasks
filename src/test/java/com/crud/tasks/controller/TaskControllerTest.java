@@ -5,9 +5,7 @@ import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import com.google.gson.Gson;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -38,15 +36,12 @@ public class TaskControllerTest {
     @MockBean
     private TaskMapper taskMapper;
 
-    @Rule
-    public final ExpectedException exception = ExpectedException.none();
-
     private static final long ID = 1L;
     private static final String TITLE = "TestDto";
     private static final String CONTENT = "Test_ContentDto";
-    private Task testeeTask = new Task(1L, "Test", "Test_Content");
-    private TaskDto testeeTaskDto = new TaskDto(ID, TITLE, CONTENT);
-    private List<TaskDto> testeeTaskDtos = Arrays.asList(testeeTaskDto);
+    private static final Task testeeTask = new Task(1L, "Test", "Test_Content");
+    private static final TaskDto testeeTaskDto = new TaskDto(ID, TITLE, CONTENT);
+    private static final List<TaskDto> testeeTaskDtos = Arrays.asList(testeeTaskDto);
 
     @Test
     public void shouldReturnEmptyList() throws Exception {
@@ -91,12 +86,10 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.content", is(CONTENT)));
     }
 
-    @Test
+    @Test(expected = TaskNotFoundException.class)
     public void shouldThrowExceptionWhenGetTask() throws Exception {
-        //Given
-        exception.expect(TaskNotFoundException.class);
 
-        //When & Then
+        //Given & When & Then
         taskMapper.mapToTaskDto(service.getTask(1L).orElseThrow(TaskNotFoundException::new));
     }
 
