@@ -1,9 +1,6 @@
 package com.crud.tasks.trello.facade;
 
-import com.crud.tasks.domain.TrelloBoard;
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloList;
-import com.crud.tasks.domain.TrelloListDto;
+import com.crud.tasks.domain.*;
 import com.crud.tasks.service.TrelloService;
 import com.crud.tasks.trello.mapper.TrelloMapper;
 import com.crud.tasks.trello.validator.TrelloValidator;
@@ -17,6 +14,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Java6Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TrelloFacadeTest {
@@ -98,5 +96,20 @@ public class TrelloFacadeTest {
                     assertFalse(trelloListDto.isClosed());
                 });
         });
+    }
+
+    @Test
+    public void shouldCreateCard() {
+        //Given
+        TrelloCardDto trelloCardDto = new TrelloCardDto("Test", "Test description", "top", "1");
+        TrelloCard trelloCard = new TrelloCard("Test", "Test description", "top", "1");
+        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("1", "Test", "http://test.com");
+
+        when(trelloMapper.mapToCard(trelloCardDto)).thenReturn(trelloCard);
+        when(trelloMapper.mapToCardDto(trelloCard)).thenReturn(trelloCardDto);
+        when(trelloService.createTrelloCard(trelloCardDto)).thenReturn(createdTrelloCardDto);
+
+        //When & Then
+        assertThat(trelloFacade.createCard(trelloCardDto)).isEqualTo(createdTrelloCardDto);
     }
 }
