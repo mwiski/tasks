@@ -17,14 +17,14 @@ public class AdminConfig {
     private String sender;
 
     @Value("${info.company.name}")
-    private String company_name;
+    private String companyName;
 
     @Value("${info.company.goal}")
-    private String company_goal;
+    private String companyGoal;
 
     @Value("${info.company.email}")
-    private String company_mail;
+    private String companyMail;
 
     @Value("${info.company.phone}")
-    private String company_phone;
+    private String companyPhone;
 }
