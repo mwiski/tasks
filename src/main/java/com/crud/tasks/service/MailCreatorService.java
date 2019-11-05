@@ -30,6 +30,11 @@ public class MailCreatorService {
         context.setVariable("tasks_url", "http://localhost:8888/tasks_frontend");
         context.setVariable("button", "Visit website");
         context.setVariable("admin_name", adminConfig.getAdminName());
+        context.setVariable("sender", adminConfig.getSender());
+        context.setVariable("company_details", adminConfig.getCompanyName() + "\n" +
+                                                            adminConfig.getCompanyGoal() + "\n" +
+                                                            adminConfig.getCompanyMail() + "\n" +
+                                                            adminConfig.getCompanyPhone());
         context.setVariable("show_button", false);
         context.setVariable("is_friend", false);
         context.setVariable("admin_config", adminConfig);

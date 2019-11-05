@@ -12,4 +12,19 @@ public class AdminConfig {
 
     @Value("${spring.mail.admin}")
     private String adminName;
+
+    @Value("${spring.mail.sender}")
+    private String sender;
+
+    @Value("${info.company.name}")
+    private String companyName;
+
+    @Value("${info.company.goal}")
+    private String companyGoal;
+
+    @Value("${info.company.email}")
+    private String companyMail;
+
+    @Value("${info.company.phone}")
+    private String companyPhone;
 }
